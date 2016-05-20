@@ -2,7 +2,7 @@
 
 "Back Button.png":
 {
-	"frame": {"x":1605,"y":1,"w":150,"h":100},
+	"frame": {"x":1,"y":1807,"w":150,"h":100},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":150,"h":100},
@@ -20,16 +20,25 @@
 },
 "Help Button.png":
 {
-	"frame": {"x":1605,"y":103,"w":150,"h":100},
+	"frame": {"x":153,"y":1807,"w":150,"h":100},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":150,"h":100},
 	"sourceSize": {"w":150,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"Help Screen.png":
+{
+	"frame": {"x":1,"y":603,"w":800,"h":600},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":800,"h":600},
+	"sourceSize": {"w":800,"h":600},
+	"pivot": {"x":0.5,"y":0.5}
+},
 "Start Button.png":
 {
-	"frame": {"x":1605,"y":205,"w":150,"h":100},
+	"frame": {"x":305,"y":1807,"w":150,"h":100},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":150,"h":100},
@@ -38,7 +47,7 @@
 },
 "Start Screen.png":
 {
-	"frame": {"x":803,"y":1,"w":800,"h":600},
+	"frame": {"x":1,"y":1205,"w":800,"h":600},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":800,"h":600},
@@ -50,8 +59,8 @@
 	"version": "1.0",
 	"image": "assets.png",
 	"format": "RGBA8888",
-	"size": {"w":1756,"h":602},
+	"size": {"w":802,"h":1908},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:1ea48f922f9c4746254d5911cdd1fae7:ebcba5f9c2c23b7f81d7ff1a55d9b84a:a759b6bbc8381ac9c472b28f589ad0d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:d6fe5a92a53d1a35cac9ce6082020688:83cda3e12a494d4caf1c6d1ae5842cb9:a759b6bbc8381ac9c472b28f589ad0d6$"
 }
 }
