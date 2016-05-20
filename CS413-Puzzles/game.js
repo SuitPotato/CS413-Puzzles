@@ -118,8 +118,7 @@ function setup(){
 		credits.anchor.x = 0.5;
 		credits.anchor.y = 0.5;
 		credits.position.x = 0;
-		credits.position.y = 60;
-		
+		credits.position.y = 60;	
 	
 	/*******************************************************************************************************
 	Help Scene
@@ -141,6 +140,11 @@ function setup(){
 	gameScene = new Container();
 	stage.addChild(gameScene);
 	gameScene.visible = false;
+	
+	// Game Screen
+	gameScreen = new Sprite(id["Game Screen"]);	
+	gameScene.addchild(gameScreen);
+	
 	
 	/*******************************************************************************************************
 	Game Over Scene
