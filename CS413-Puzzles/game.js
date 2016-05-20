@@ -1,6 +1,11 @@
 /**********************************************************************************************************
 Keith Saunders Project 2 - Puzzles
 **********************************************************************************************************/
+/**********************************************************************************************************
+Attaching to Gameport
+**********************************************************************************************************/
+// Attach to the HTML document via gameport ID
+var gameport = document.getElementById("gameport");
 
 /**********************************************************************************************************
 Aliasing 
@@ -32,7 +37,7 @@ Loader
 // Load a JSON file and run the setup function. 
 // 'adds' the JSON sheet
 loader
-	.add("images/sheet.json")
+	.add("images/assets.json")
 	//.on("progress", loadProgressHandler)
 	.load(setup);
 	
@@ -103,22 +108,30 @@ function setup(){
 		buttons.addChild(play);
 		play.anchor.x = 0.5;
 		play.anchor.y = 0.5;
+		play.scale.x = 0.7;
+		play.scale.y = 0.7;
 		play.position.x = 0;
 		play.position.y = 0;
+		play.interactive = true;
+		play.on('mousedown', startHandler);
 	
 		// Help Button
 		buttons.addChild(help);
 		help.anchor.x = 0.5;
 		help.anchor.y = 0.5;
+		help.scale.x = 0.7;
+		help.scale.y = 0.7;
 		help.position.x = 0;
-		help.position.y = 30;
+		help.position.y = 100;
+		help.interactive = true;
+		help.on('mousedown', helpHandler);
 		
 		// Credits Button
 		credits.addChild(credits);
 		credits.anchor.x = 0.5;
 		credits.anchor.y = 0.5;
 		credits.position.x = 0;
-		credits.position.y = 60;	
+		credits.position.y = 160;	
 	
 	/*******************************************************************************************************
 	Help Scene
@@ -142,8 +155,8 @@ function setup(){
 	gameScene.visible = false;
 	
 	// Game Screen
-	gameScreen = new Sprite(id["Game Screen"]);	
-	gameScene.addchild(gameScreen);
+	gameScreen = new Sprite(id["Game Screen.png"]);	
+	gameScene.addChild(gameScreen);
 	
 	
 	/*******************************************************************************************************
@@ -157,30 +170,44 @@ function setup(){
 	Render Setup!
 	*******************************************************************************************************/
 	renderer.render(stage);
-	state = play;
+	state = introduction;
 	gameLoop();
 }
-
-
 
 /**********************************************************************************************************
 GameLoop 
 **********************************************************************************************************/
 function gameLoop() {
-	// Constantly loop through this function
 	requestAnimationFrame(gameLoop);
-	// Call the state
 	state();
-	// Render the stage
 	renderer.render(stage);
 }
-
 
 /**********************************************************************************************************
 State Functions
 **********************************************************************************************************/
 
+	function introduction() {
+		
+	}
 
-/**********************************************************************************************************
-Helper Functions
-***********************************************************************************************************
+	function help() {
+		
+	}
+	
+	function credits() {
+		
+	}
+	
+	function game() {
+		
+	}
+	
+	function end() {
+		
+	}
+
+
+	
+	
+	
