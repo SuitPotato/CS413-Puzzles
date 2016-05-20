@@ -140,6 +140,9 @@ function setup(){
 	stage.addChild(helpScene);
 	helpScene.visible = false;
 	
+	helpScreen = new Sprite(id["Help Screen.png"]);
+	helpScene.addChild(helpScreen);
+	
 	back = new Sprite(id["Back Button.png"]);
 	
 		// Back Button 
@@ -170,17 +173,6 @@ function setup(){
 	// Game Screen
 	gameScreen = new Sprite(id["Game Screen.png"]);	
 	gameScene.addChild(gameScreen);
-	
-		// Back Button 
-		gameScene.addChild(back);
-		back.anchor.x = 0.5;
-		back.anchor.y = 0.5;
-		back.scale.x = 0.7;
-		back.scale.y = 0.7;
-		back.position.x = 400;
-		back.position.y = 300;
-		back.interactive = true;
-		back.on('mousedown', backHandler);
 	
 	
 	/*******************************************************************************************************
