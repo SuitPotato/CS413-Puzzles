@@ -41,6 +41,7 @@ loader
 Var Declaration
 ***********************************************************************************************************/
 var state;
+var buttons, start, play, help, credits;
 
 /**********************************************************************************************************
 Setup Function
@@ -78,27 +79,75 @@ function setup(){
 	Sprite Creation
 	*******************************************************************************************************/
 	// Creating an alias to the texture atlas
-	id = PIXI.loader.resources["images/sheet.json"].textures;
+	id = PIXI.loader.resources["images/assets.json"].textures;
 	
 	/*******************************************************************************************************
 	Introduction Scene 
 	*******************************************************************************************************/
+	// Add Sprite png's
+	startMenu = new Sprite(id["Start Screen.png"]);
+	play = new Sprite(id["Start Button.png"]);
+	help = new Sprite(id["Help Button.png"]);
+	credits = new Sprite(id["Credits Button.png"]);
+	
+	// Intro Scene Start Menu
+	introScene.addChild(startMenu);
+	
+	// Buttons Container
+	var buttons = new Container();
+	buttons.position.x = 400;
+	buttons.position.y = 300;
+	introScene.addChild(buttons);
+
+		// Play Button 
+		buttons.addChild(play);
+		play.anchor.x = 0.5;
+		play.anchor.y = 0.5;
+		play.position.x = 0;
+		play.position.y = 0;
+	
+		// Help Button
+		buttons.addChild(help);
+		help.anchor.x = 0.5;
+		help.anchor.y = 0.5;
+		help.position.x = 0;
+		help.position.y = 30;
+		
+		// Credits Button
+		credits.addChild(credits);
+		credits.anchor.x = 0.5;
+		credits.anchor.y = 0.5;
+		credits.position.x = 0;
+		credits.position.y = 60;
+		
 	
 	/*******************************************************************************************************
 	Help Scene
 	*******************************************************************************************************/
+	helpScene = new Container();
+	stage.addChild(helpScene);
+	helpScene.visible = false;
 	
 	/*******************************************************************************************************
 	Credits Scene
 	*******************************************************************************************************/
+	creditsScene = new Container();
+	stage.addChild(creditsScene);
+	creditsScene.visible = false;
 	
 	/*******************************************************************************************************
 	Game Scene
 	*******************************************************************************************************/
+	gameScene = new Container();
+	stage.addChild(gameScene);
+	gameScene.visible = false;
 	
 	/*******************************************************************************************************
 	Game Over Scene
 	*******************************************************************************************************/
+	gameOverScene = new Container();
+	stage.addChild(gameOverScene);
+	gameOverScene.visible = false;
 	
 	/*******************************************************************************************************
 	Render Setup!
