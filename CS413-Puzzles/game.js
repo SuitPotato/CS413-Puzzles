@@ -46,7 +46,7 @@ loader
 Var Declaration
 ***********************************************************************************************************/
 var state;
-var buttons, start, play, help, credits;
+var buttons, start, play, help, credits, back;
 
 /**********************************************************************************************************
 Setup Function
@@ -140,6 +140,19 @@ function setup(){
 	stage.addChild(helpScene);
 	helpScene.visible = false;
 	
+	back = new Sprite(id["Back Button.png"]);
+	
+		// Back Button 
+		helpScene.addChild(back);
+		back.anchor.x = 0.5;
+		back.anchor.y = 0.5;
+		back.scale.x = 0.7;
+		back.scale.y = 0.7;
+		back.position.x = 400;
+		back.position.y = 300;
+		back.interactive = true;
+		back.on('mousedown', backHandler);
+	
 	/*******************************************************************************************************
 	Credits Scene
 	*******************************************************************************************************/
@@ -157,6 +170,17 @@ function setup(){
 	// Game Screen
 	gameScreen = new Sprite(id["Game Screen.png"]);	
 	gameScene.addChild(gameScreen);
+	
+		// Back Button 
+		gameScene.addChild(back);
+		back.anchor.x = 0.5;
+		back.anchor.y = 0.5;
+		back.scale.x = 0.7;
+		back.scale.y = 0.7;
+		back.position.x = 400;
+		back.position.y = 300;
+		back.interactive = true;
+		back.on('mousedown', backHandler);
 	
 	
 	/*******************************************************************************************************
@@ -230,6 +254,20 @@ Helper Functions
 		introScene.visible = false;
 		state = game;
 		helpScene.visible = true;
+		alert("it works");
+	}
+	
+	/*******************************************************************************************************
+	Back Handler
+	*******************************************************************************************************/
+	
+	function backHandler(e){
+		introScene.visible = true;
+		state = introduction;
+		// Make sure other scenese aren't visible	
+		helpScene.visible = false;
+		creditScene.visible = false;
+		gameScene.visible = false;
 		alert("it works");
 	}
 	
