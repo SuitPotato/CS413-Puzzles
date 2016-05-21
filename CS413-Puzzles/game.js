@@ -47,6 +47,7 @@ Var Declaration
 ***********************************************************************************************************/
 var state;
 var buttons, start, play, help, credits, back, creditBack;
+var simon = [];
 
 /**********************************************************************************************************
 Setup Function
@@ -334,7 +335,7 @@ Helper Functions
 	*******************************************************************************************************/
 	function creditBackHandler(e){
 		introScene.visible = true;
-		// Make sure other scenese aren't visible	
+		// Make sure other scenes aren't visible	
 		helpScene.visible = false;
 		creditScene.visible = false;
 		gameScene.visible = false;
@@ -349,5 +350,11 @@ Helper Functions
 	}
 	
 	
-	
+	/*******************************************************************************************************
+	Random Integer Function 
+	*******************************************************************************************************/
+	// Random generates a number from [0,1). Min and max reachable.
+	function randomInt(min, max){
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
 	
