@@ -46,7 +46,7 @@ loader
 Var Declaration
 ***********************************************************************************************************/
 var state;
-var buttons, start, play, help, credits, back;
+var buttons, start, play, help, credits, back, creditBack;
 
 /**********************************************************************************************************
 Setup Function
@@ -93,7 +93,7 @@ function setup(){
 	startMenu = new Sprite(id["Start Screen.png"]);
 	play = new Sprite(id["Start Button.png"]);
 	help = new Sprite(id["Help Button.png"]);
-	credits = new Sprite(id["Credits Button.png"]);
+	credits = new Sprite(id["Credit Button.png"]);
 	
 	// Intro Scene Start Menu
 	introScene.addChild(startMenu);
@@ -127,11 +127,16 @@ function setup(){
 		help.on('mousedown', helpHandler);
 		
 		// Credits Button
-		credits.addChild(credits);
+		buttons.addChild(credits);
+	
 		credits.anchor.x = 0.5;
 		credits.anchor.y = 0.5;
+		credits.scale.x = 0.7;
+		credits.scale.y = 0.7;
 		credits.position.x = 0;
-		credits.position.y = 160;	
+		credits.position.y = 200;
+		credits.interactive = true;
+		credits.on('mousedown', creditHandler);
 	
 	/*******************************************************************************************************
 	Help Scene
@@ -142,10 +147,9 @@ function setup(){
 	
 	helpScreen = new Sprite(id["Help Screen.png"]);
 	helpScene.addChild(helpScreen);
-	
-	back = new Sprite(id["Back Button.png"]);
-	
+		
 		// Back Button 
+		back = new Sprite(id["Back Button.png"]);
 		helpScene.addChild(back);
 		back.anchor.x = 0.5;
 		back.anchor.y = 0.5;
@@ -163,6 +167,22 @@ function setup(){
 	stage.addChild(creditsScene);
 	creditsScene.visible = false;
 	
+	creditsScreen = new Sprite(id["Credits Screen.png"]);
+	creditScene.addChild(creditsScreen);
+	
+		// Back Button
+		creditBack = new Sprite(id["Back Button.png"]);
+		creditsScene.addChild(creditBack);
+		creditBack.anchor.x = 0.5;
+		creditBack.anchor.y = 0.5;
+		creditBack.scale.x = 0.7;
+		creditBack.scale.y = 0.7;
+		creditBack.position.x = 200;
+		creditBack.position.y = 300;
+		creditBack.interactive = true;
+		creditBack.on('mousedown', creditBackHandler);
+		
+	
 	/*******************************************************************************************************
 	Game Scene
 	*******************************************************************************************************/
@@ -174,6 +194,58 @@ function setup(){
 	gameScreen = new Sprite(id["Game Screen.png"]);	
 	gameScene.addChild(gameScreen);
 	
+	colors = new Container()
+	colors.position.x = 400;
+	colors.position.y = 300;
+	gameScene.addChild(colors);
+	
+		// Sprites
+		greenButton = new Sprite(id["Green Button.png"]);
+		blueButton = new Sprite(id["Blue Button.png"]);
+		yellowButton = new Sprite(id["Yellow Button.png"]);
+		redButton = new Sprite(id["Red Button.png"]);
+		
+		// Buttons to colors Container
+		colors.addChild(greenButton);
+		colors.addChild(blueButton);
+		colors.addChild(yellowButton);
+		colors.addChild(redButton);
+		
+		// Red Button
+		redButton.anchor.x = 0.5;
+		redButton.anchor.y = 0.5;
+		redButton.position.x = -100;
+		redButton.position.y = -100;
+		redButton.scale.x = 0.8;
+		redButton.scale.y = 0.8;
+		redButton.interactive = true;
+		
+		// Blue Button
+		blueButton.anchor.x = 0.5;
+		blueButton.anchor.y = 0.5;
+		blueButton.position.x = 100;
+		blueButton.position.y = -100;
+		blueButton.scale.x = 0.8;
+		blueButton.scale.y = 0.8;
+		blueButton.interactive = true;
+		
+		// Green Button
+		greenButton.anchor.x = 0.5;
+		greenButton.anchor.y = 0.5;
+		greenButton.position.x = -100;
+		greenButton.position.y = 100;
+		greenButton.scale.x = 0.8;
+		greenButton.scale.y = 0.8;
+		greenButton.interactive = true;
+		
+		// Yellow Button
+		yellowButton.anchor.x = 0.5;
+		yellowButton.anchor.y = 0.5;
+		yellowButton.position.x = 100;
+		yellowButton.position.y = 100;
+		yellowButton.scale.x = 0.8;
+		yellowButton.scale.y = 0.8;
+		yellowButton.interactive = true;
 	
 	/*******************************************************************************************************
 	Game Over Scene
@@ -235,7 +307,6 @@ Helper Functions
 		introScene.visible = false;
 		state = game;
 		gameScene.visible = true;
-		alert("it works.");
 	}
 	
 	/*******************************************************************************************************
@@ -244,26 +315,38 @@ Helper Functions
 	
 	function helpHandler(e){
 		introScene.visible = false;
-		state = game;
 		helpScene.visible = true;
-		alert("it works");
 	}
 	
 	/*******************************************************************************************************
 	Back Handler
 	*******************************************************************************************************/
-	
 	function backHandler(e){
 		introScene.visible = true;
-		state = introduction;
 		// Make sure other scenese aren't visible	
 		helpScene.visible = false;
 		creditScene.visible = false;
 		gameScene.visible = false;
-		alert("it works");
 	}
 	
+	/*******************************************************************************************************
+	Credit Back Handler
+	*******************************************************************************************************/
+	function creditBackHandler(e){
+		introScene.visible = true;
+		// Make sure other scenese aren't visible	
+		helpScene.visible = false;
+		creditScene.visible = false;
+		gameScene.visible = false;
+	}
 	
+	/*******************************************************************************************************
+	Credits Handler
+	*******************************************************************************************************/
+	function creditHandler(e){
+		introScene.visible = false
+		creditScene.visible = true;
+	}
 	
 	
 	
