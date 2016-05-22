@@ -47,7 +47,8 @@ Var Declaration
 ***********************************************************************************************************/
 var state;
 var buttons, start, play, help, credits, back, creditBack;
-var simon = [];
+var redButton, blueButton, greenButton, yellowButton;
+var says = [1,2,3,4];
 
 /**********************************************************************************************************
 Setup Function
@@ -219,7 +220,7 @@ function setup(){
 		redButton.position.y = -100;
 		redButton.scale.x = 0.8;
 		redButton.scale.y = 0.8;
-		redButton.interactive = true;
+		redButton.interactive = false;
 		
 		// Blue Button
 		blueButton.anchor.x = 0.5;
@@ -237,7 +238,7 @@ function setup(){
 		greenButton.position.y = 100;
 		greenButton.scale.x = 0.8;
 		greenButton.scale.y = 0.8;
-		greenButton.interactive = true;
+		greenButton.interactive = false;
 		
 		// Yellow Button
 		yellowButton.anchor.x = 0.5;
@@ -246,7 +247,7 @@ function setup(){
 		yellowButton.position.y = 100;
 		yellowButton.scale.x = 0.8;
 		yellowButton.scale.y = 0.8;
-		yellowButton.interactive = true;
+		yellowButton.interactive = false;
 	
 	/*******************************************************************************************************
 	Game Over Scene
@@ -289,7 +290,7 @@ State Functions
 	}
 	
 	function game() {
-		
+		simonSays();
 	}
 	
 	function end() {
@@ -349,6 +350,34 @@ Helper Functions
 		creditScene.visible = true;
 	}
 	
+	/*******************************************************************************************************
+	Red Input
+	*******************************************************************************************************/
+	function redInput(e){
+		
+	}
+	
+	/*******************************************************************************************************
+	Blue Input
+	*******************************************************************************************************/
+	function blueInput(e){
+		simonSays();
+	}
+	
+	/*******************************************************************************************************
+	Green Input
+	*******************************************************************************************************/
+	function greenInput(e){
+		
+	}
+	
+	/*******************************************************************************************************
+	Yellow Input
+	*******************************************************************************************************/
+	function yellowInput(e){
+		
+	}
+	
 	
 	/*******************************************************************************************************
 	Random Integer Function 
@@ -357,4 +386,70 @@ Helper Functions
 	function randomInt(min, max){
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
+	
+	/*******************************************************************************************************
+	Simon Says
+	*******************************************************************************************************/
+	// 1 = Red
+	// 2 = Blue
+	// 3 = Green
+	// 4 = Yellow
+
+	function simonSays(){
+
+		
+		says.push(randomInt(1,4));
+		
+		for(var i = 0; i<says.length; i++) {
+			
+			switch(says[i]){
+				
+				// Original = b20830
+				// Tint = db0000
+				case 1:
+					redButton.tint = 0xdb0000;
+					
+					redButton.tint = 0xb20830;
+					break;
+					
+				// Original = 2800ba
+				// Tint = 92d3ff
+				case 2:
+					blueButton.tint = 0x92d3ff;
+					
+					blueButton.tint = 0x2800ba;
+					break;
+					
+				// Original = 386d00
+				// Tint = 71f341
+				case 3:
+					greenButton.tint = 0x71f341;
+					
+					greenButton.tint = 0x386d00;
+					break;
+					
+				// Original = ebd320
+				// Tint = ffa200
+				case 4:
+					yellowButton.tint = 0xffa200;
+					
+					yellowButton.tint = 0xebd320;
+					break;
+				default: 
+					console.log("An error has occured.");
+			}
+		}	
+	}
+	
+	/*******************************************************************************************************
+	Player Says
+	*******************************************************************************************************/
+	// Player chooses correct button 
+		// Request next button OR
+		// Repeat simonSays()
+	// Player chooses incorrect button -> End Game.
+	// Player chooses a button why buttons are animating -> Do Nothing
+	
+	
+	
 	
