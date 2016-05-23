@@ -47,8 +47,7 @@ Var Declaration
 ***********************************************************************************************************/
 var state;
 var buttons, start, play, help, credits, back, creditBack;
-var redButton, blueButton, greenButton, yellowButton;
-var says = [1,2,3,4];
+var says = [];
 
 /**********************************************************************************************************
 Setup Function
@@ -220,7 +219,7 @@ function setup(){
 		redButton.position.y = -100;
 		redButton.scale.x = 0.8;
 		redButton.scale.y = 0.8;
-		redButton.interactive = false;
+		redButton.interactive = true;
 		
 		// Blue Button
 		blueButton.anchor.x = 0.5;
@@ -238,7 +237,7 @@ function setup(){
 		greenButton.position.y = 100;
 		greenButton.scale.x = 0.8;
 		greenButton.scale.y = 0.8;
-		greenButton.interactive = false;
+		greenButton.interactive = true;
 		
 		// Yellow Button
 		yellowButton.anchor.x = 0.5;
@@ -247,7 +246,7 @@ function setup(){
 		yellowButton.position.y = 100;
 		yellowButton.scale.x = 0.8;
 		yellowButton.scale.y = 0.8;
-		yellowButton.interactive = false;
+		yellowButton.interactive = true;
 	
 	/*******************************************************************************************************
 	Game Over Scene
@@ -290,7 +289,7 @@ State Functions
 	}
 	
 	function game() {
-		simonSays();
+		
 	}
 	
 	function end() {
@@ -351,31 +350,11 @@ Helper Functions
 	}
 	
 	/*******************************************************************************************************
-	Red Input
+	Red Says
 	*******************************************************************************************************/
-	function redInput(e){
-		
-	}
-	
-	/*******************************************************************************************************
-	Blue Input
-	*******************************************************************************************************/
-	function blueInput(e){
-		simonSays();
-	}
-	
-	/*******************************************************************************************************
-	Green Input
-	*******************************************************************************************************/
-	function greenInput(e){
-		
-	}
-	
-	/*******************************************************************************************************
-	Yellow Input
-	*******************************************************************************************************/
-	function yellowInput(e){
-		
+	function redSays(e){
+		introScene.visible = false
+		creditScene.visible = true;
 	}
 	
 	
@@ -397,43 +376,27 @@ Helper Functions
 
 	function simonSays(){
 
-		
 		says.push(randomInt(1,4));
 		
 		for(var i = 0; i<says.length; i++) {
 			
 			switch(says[i]){
 				
-				// Original = b20830
-				// Tint = db0000
+				// Red 
 				case 1:
-					redButton.tint = 0xdb0000;
-					
-					redButton.tint = 0xb20830;
+					createjs.Tween.get(redButton.position).to({x: 100, y: 100}, 500, createjs.Ease.bounceOut);
 					break;
 					
-				// Original = 2800ba
-				// Tint = 92d3ff
+				// Blue
 				case 2:
-					blueButton.tint = 0x92d3ff;
-					
-					blueButton.tint = 0x2800ba;
 					break;
 					
-				// Original = 386d00
-				// Tint = 71f341
+				// Green
 				case 3:
-					greenButton.tint = 0x71f341;
-					
-					greenButton.tint = 0x386d00;
 					break;
 					
-				// Original = ebd320
-				// Tint = ffa200
+				// Yellow
 				case 4:
-					yellowButton.tint = 0xffa200;
-					
-					yellowButton.tint = 0xebd320;
 					break;
 				default: 
 					console.log("An error has occured.");
