@@ -50,8 +50,9 @@ var buttons, start, play, help, credits, back, creditBack;
 var redButton, blueButton, greenButton, yellowButton;
 var says = [];
 var playerSays;
-var playerSaid = [];
+//var playerSaid = [];
 var globalCount = 0;
+var gameCount = 0;
 
 /**********************************************************************************************************
 Setup Function
@@ -299,7 +300,10 @@ State Functions
 	}
 	
 	function game() {
-		player();
+		if(gameCount == says.length){
+			simonSays();
+			gameCount = 0;
+		}
 	}
 	
 	function end() {
@@ -363,22 +367,34 @@ Helper Functions
 	Red Says
 	*******************************************************************************************************/
 	function redSays(e){
-		globalCount++;
+		
 		playerSays = 1;
-		playerSaid.push(playerSays);
-		console.log(arraysEqual(playerSaid, says));
-		console.log(globalCount == says.length);
+		
+		if(playerSays == says[gameCount]){
+			gameCount++;
+		}
+		else{
+			console.log("lose.")
+		}
+			
+	
+		globalCount++;
 	}
 	
 	/*******************************************************************************************************
 	Blue Says
 	*******************************************************************************************************/
 	function blueSays(e){
-		globalCount++;
+		
 		playerSays = 2;
-		playerSaid.push(playerSays);
-		console.log(arraysEqual(playerSaid, says));
-		console.log(globalCount == says.length);
+		
+		if(playerSays == says[gameCount]){
+			gameCount++;
+		}
+		else{
+			console.log("lose.")
+		}
+		globalCount++;
 		
 	}
 	
@@ -386,11 +402,16 @@ Helper Functions
 	Green Says
 	*******************************************************************************************************/
 	function greenSays(e){
-		globalCount++;
+		
 		playerSays = 3;
-		playerSaid.push(playerSays);
-		console.log(arraysEqual(playerSaid, says));
-		console.log(globalCount == says.length);
+		
+		if(playerSays == says[gameCount]){
+			gameCount++;
+		}
+		else{
+			console.log("lose.")
+		}
+		globalCount++;
 		
 	}
 	
@@ -399,11 +420,16 @@ Helper Functions
 	Yellow Says
 	*******************************************************************************************************/
 	function yellowSays(e){
-		globalCount++;
+		
 		playerSays = 4;
-		playerSaid.push(playerSays);
-		console.log(arraysEqual(playerSaid, says));
-		console.log(globalCount == says.length);
+		
+		if(playerSays == says[gameCount]){
+			gameCount++;
+		}
+		else{
+			console.log("lose.")
+		}
+		globalCount++;
 		
 	}
 	
@@ -475,13 +501,26 @@ Helper Functions
 		// Repeat simonSays()
 	// Player chooses incorrect button -> End Game.
 	// Player chooses a button why buttons are animating -> Do Nothing
-
+	/*
 	function player(){
+		
 		
 		redButton.interactive = true;
 		blueButton.interactive = true;
 		greenButton.interactive = true;
 		yellowButton.interactive = true;
+		
+		
+		if(playerSays == says[var k=0]){
+			if(k == says.length){
+				simonSays();
+			}
+			else{
+				
+			}
+		}
+			
+		
 		
 		if(globalCount == says.length){				// Check if Arrays are equal
 			if(arraysEqual(playerSaid, says) == true) {		// If Equal 
@@ -494,7 +533,7 @@ Helper Functions
 				
 			}
 			else {
-				alert("lost.");
+				console.log("lost.");
 			}
 				
 					
@@ -506,6 +545,7 @@ Helper Functions
 			
 		}
 	}
+	*/
 	/*******************************************************************************************************
 	Timer
 	*******************************************************************************************************/	
