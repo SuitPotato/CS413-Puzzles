@@ -289,7 +289,7 @@ State Functions
 	}
 	
 	function game() {
-		
+		simonSays();
 	}
 	
 	function end() {
@@ -376,33 +376,43 @@ Helper Functions
 
 	function simonSays(){
 
-		says.push(randomInt(1,4));
+		//says.push(randomInt(1,4));
 		
 		for(var i = 0; i<says.length; i++) {
 			
-			switch(says[i]){
-				
-				// Red 
-				case 1:
-					createjs.Tween.get(redButton.position).to({x: 100, y: 100}, 500, createjs.Ease.bounceOut);
-					break;
-					
-				// Blue
-				case 2:
-					break;
-					
-				// Green
-				case 3:
-					break;
-					
-				// Yellow
-				case 4:
-					break;
-				default: 
-					console.log("An error has occured.");
+			// Red 
+			if (says[i] === 1){
+				createjs.Tween.get(redButton.position).to({x: -110, y: -110}, 1000, createjs.Ease.bounceOut)
+				.to({x: -100, y: -100}, 500, createjs.Ease.bounceOut);
 			}
-		}	
-	}
+		
+				
+			// Blue
+			else if (says[i] === 2){
+				createjs.Tween.get(blueButton.position).to({x: 110, y: -110}, 1000, createjs.Ease.bounceOut)
+				.to({x: 100, y: -100}, 500, createjs.Ease.bounceOut);
+			}
+			
+				
+			// Green
+			else if (says[i] === 3){
+				createjs.Tween.get(greenButton.position).to({x: -110, y: 110}, 1000, createjs.Ease.bounceOut)
+				.to({x: -100, y: 100}, 500, createjs.Ease.bounceOut);
+				break;
+			}
+			
+			// Yellow
+			else if (says[i] === 4){
+				createjs.Tween.get(yellowButton.position).to({x: 110, y: 110}, 1000, createjs.Ease.bounceOut)
+				.to({x: 100, y: 100}, 500, createjs.Ease.bounceOut);
+			}
+		
+			else { 
+				console.log("An error has occured.");
+				}
+		}
+	}	
+	
 	
 	/*******************************************************************************************************
 	Player Says
