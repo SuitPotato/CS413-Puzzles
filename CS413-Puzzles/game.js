@@ -38,7 +38,11 @@ Loader
 // 'adds' the JSON sheet
 loader
 	.add("images/assets.json")
-	//.on("progress", loadProgressHandler)
+	.add("audio/Background.mp3")
+	.add("audio/Red.mp3")
+	.add("audio/Blue.mp3")
+	.add("audio/Green.mp3")
+	.add("audio/Yellow.mp3")
 	.load(setup);
 	
 
@@ -48,11 +52,13 @@ Var Declaration
 var state;
 var buttons, start, play, help, credits, back, creditBack;
 var redButton, blueButton, greenButton, yellowButton;
+var background, redMusic, blueMusic, greenMusic, yellowMusic;
 var says = [];
 var playerSays;
-//var playerSaid = [];
 var globalCount = 0;
 var gameCount = 0;
+
+
 
 /**********************************************************************************************************
 Setup Function
@@ -91,6 +97,17 @@ function setup(){
 	*******************************************************************************************************/
 	// Creating an alias to the texture atlas
 	id = PIXI.loader.resources["images/assets.json"].textures;
+	
+	
+	/*******************************************************************************************************
+	Assigning Music Stuff 
+	*******************************************************************************************************/
+	// Music Variables
+	background = PIXI.audioManager.getAudio("audio/Background.mp3");
+	redMusic = PIXI.audioManager.getAudio("audio/Red.mp3");
+	blueMusic = PIXI.audioManager.getAudio("audio/Blue.mp3");
+	greenMusic = PIXI.audioManager.getAudio("audio/Green.mp3");
+	yellowMusic = PIXI.audioManager.getAudio("audio/Yellow.mp3");
 	
 	/*******************************************************************************************************
 	Introduction Scene 
@@ -143,6 +160,7 @@ function setup(){
 		credits.position.y = 200;
 		credits.interactive = true;
 		credits.on('mousedown', creditHandler);
+
 	
 	/*******************************************************************************************************
 	Help Scene
@@ -369,7 +387,7 @@ Helper Functions
 	function redSays(e){
 		
 		playerSays = 1;
-		
+		redMusic.play();
 		if(playerSays == says[gameCount]){
 			gameCount++;
 		}
@@ -387,7 +405,7 @@ Helper Functions
 	function blueSays(e){
 		
 		playerSays = 2;
-		
+		blueMusic.play();
 		if(playerSays == says[gameCount]){
 			gameCount++;
 		}
@@ -404,7 +422,7 @@ Helper Functions
 	function greenSays(e){
 		
 		playerSays = 3;
-		
+		greenMusic.play();
 		if(playerSays == says[gameCount]){
 			gameCount++;
 		}
@@ -422,7 +440,7 @@ Helper Functions
 	function yellowSays(e){
 		
 		playerSays = 4;
-		
+		yellowMusic.play();
 		if(playerSays == says[gameCount]){
 			gameCount++;
 		}
@@ -452,38 +470,53 @@ Helper Functions
 	function simonSays(){
 		
 		// Push a number between [1,4]
-		says.push(randomInt(1,4));
+		var whatPush;
+		whatPush = randomInt(1,4);
+		console.log(whatPush);
+		
+		says.push(whatPush);
+		
+		// 
+		var delay = 1000;
+		var x = 1;
 		
 		// Play animations
 		for(var i = 0; i<says.length; i++) {
-			startTimer;
+			x++;
 			// Red 
 			if (says[i] === 1){
-				createjs.Tween.get(redButton.position).to({x: -110, y: -110}, 1000, createjs.Ease.bounceOut)
-				.to({x: -100, y: -100}, 500, createjs.Ease.bounceOut);
-				startTimer;
+				
+				createjs.Tween.get(redButton.position).wait(2000*x).to({x: -110, y: -110}, 1000, createjs.Ease.bounceOut)
+				.to({x: -100, y: -100}, 1000, createjs.Ease.bounceOut);
+				
 			}
 		
 			// Blue
 			else if (says[i] === 2){
-				createjs.Tween.get(blueButton.position).to({x: 110, y: -110}, 1000, createjs.Ease.bounceOut)
-				.to({x: 100, y: -100}, 500, createjs.Ease.bounceOut);
-				startTimer;
+				
+				createjs.Tween.get(blueButton.position).wait(2000*x).to({x: 110, y: -110}, 1000, createjs.Ease.bounceOut)
+				.to({x: 100, y: -100}, 1000, createjs.Ease.bounceOut);
+				
+				
 			}
 			
 			// Green
 			else if (says[i] === 3){
-				createjs.Tween.get(greenButton.position).to({x: -110, y: 110}, 1000, createjs.Ease.bounceOut)
-				.to({x: -100, y: 100}, 500, createjs.Ease.bounceOut);
-				startTimer;
+				
+				createjs.Tween.get(greenButton.position).wait(2000*x).to({x: -110, y: 110}, 1000, createjs.Ease.bounceOut)
+				.to({x: -100, y: 100}, 1000, createjs.Ease.bounceOut);
+				
+				
 				
 			}
 			
 			// Yellow
 			else if (says[i] === 4){
-				createjs.Tween.get(yellowButton.position).to({x: 110, y: 110}, 1000, createjs.Ease.bounceOut)
-				.to({x: 100, y: 100}, 500, createjs.Ease.bounceOut);
-				startTimer;
+				
+				createjs.Tween.get(yellowButton.position).wait(2000*x).to({x: 110, y: 110}, 1000, createjs.Ease.bounceOut)
+				.to({x: 100, y: 100}, 1000, createjs.Ease.bounceOut);
+				
+				
 			}
 		
 			else { 
