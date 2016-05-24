@@ -49,14 +49,15 @@ loader
 /***********************************************************************************************************
 Var Declaration
 ***********************************************************************************************************/
-var state;
-var buttons, start, play, help, credits, back, creditBack;
-var redButton, blueButton, greenButton, yellowButton;
-var background, redMusic, blueMusic, greenMusic, yellowMusic;
-var says = [];
-var playerSays;
-var globalCount = 0;
-var gameCount = 0;
+var state; // game state
+var buttons, start, play, help, credits, back, creditBack, replayButton; // buttons for menus
+var redButton, blueButton, greenButton, yellowButton; // game buttons
+var background, redMusic, blueMusic, greenMusic, yellowMusic; // music variables
+var says = []; // global Simon Says
+var playerSays; // player says 
+
+var globalCount = 0; // global Count
+var gameCount = 0; // game Count
 
 
 
@@ -103,7 +104,7 @@ function setup(){
 	Assigning Music Stuff 
 	*******************************************************************************************************/
 	// Music Variables
-	background = PIXI.audioManager.getAudio("audio/Background.mp3");
+	background = PIXI.audioManager.getAudio("audio/Background.mp3"); // Gets Tiring to hear, not going to add
 	redMusic = PIXI.audioManager.getAudio("audio/Red.mp3");
 	blueMusic = PIXI.audioManager.getAudio("audio/Blue.mp3");
 	greenMusic = PIXI.audioManager.getAudio("audio/Green.mp3");
@@ -114,16 +115,16 @@ function setup(){
 	*******************************************************************************************************/
 	// Add Sprite png's
 	startMenu = new Sprite(id["Start Screen.png"]);
-	play = new Sprite(id["Start Button.png"]);
-	help = new Sprite(id["Help Button.png"]);
-	credits = new Sprite(id["Credit Button.png"]);
+	play = new Sprite(id["New Game Base.png"]);
+	help = new Sprite(id["Instruction Base.png"]);
+	credits = new Sprite(id["Credits Base.png"]);
 	
 	// Intro Scene Start Menu
 	introScene.addChild(startMenu);
 	
 	// Buttons Container
 	var buttons = new Container();
-	buttons.position.x = 400;
+	buttons.position.x = 700;
 	buttons.position.y = 300;
 	introScene.addChild(buttons);
 
@@ -161,63 +162,52 @@ function setup(){
 		credits.interactive = true;
 		credits.on('mousedown', creditHandler);
 
-	
 	/*******************************************************************************************************
 	Help Scene
 	*******************************************************************************************************/
-	helpScene = new Container();
-	stage.addChild(helpScene);
-	helpScene.visible = false;
-	
+	// Help Screen
 	helpScreen = new Sprite(id["Help Screen.png"]);
 	helpScene.addChild(helpScreen);
 		
 		// Back Button 
-		back = new Sprite(id["Back Button.png"]);
+		back = new Sprite(id["Back Base.png"]);
 		helpScene.addChild(back);
 		back.anchor.x = 0.5;
 		back.anchor.y = 0.5;
 		back.scale.x = 0.7;
 		back.scale.y = 0.7;
 		back.position.x = 400;
-		back.position.y = 300;
+		back.position.y = 400;
 		back.interactive = true;
 		back.on('mousedown', backHandler);
 	
 	/*******************************************************************************************************
 	Credits Scene
 	*******************************************************************************************************/
-	creditsScene = new Container();
-	stage.addChild(creditsScene);
-	creditsScene.visible = false;
-	
+	// Credits Screen
 	creditsScreen = new Sprite(id["Credits Screen.png"]);
 	creditScene.addChild(creditsScreen);
 	
 		// Back Button
-		creditBack = new Sprite(id["Back Button.png"]);
-		creditsScene.addChild(creditBack);
+		creditBack = new Sprite(id["Back Selected.png"]);
+		creditScene.addChild(creditBack);
 		creditBack.anchor.x = 0.5;
 		creditBack.anchor.y = 0.5;
 		creditBack.scale.x = 0.7;
 		creditBack.scale.y = 0.7;
-		creditBack.position.x = 200;
-		creditBack.position.y = 300;
+		creditBack.position.x = 400;
+		creditBack.position.y = 400;
 		creditBack.interactive = true;
 		creditBack.on('mousedown', creditBackHandler);
-		
 	
 	/*******************************************************************************************************
 	Game Scene
 	*******************************************************************************************************/
-	gameScene = new Container();
-	stage.addChild(gameScene);
-	gameScene.visible = false;
-	
 	// Game Screen
 	gameScreen = new Sprite(id["Game Screen.png"]);	
 	gameScene.addChild(gameScreen);
 	
+	// Color Container
 	colors = new Container()
 	colors.position.x = 400;
 	colors.position.y = 300;
@@ -228,6 +218,7 @@ function setup(){
 		blueButton = new Sprite(id["Blue Button.png"]);
 		yellowButton = new Sprite(id["Yellow Button.png"]);
 		redButton = new Sprite(id["Red Button.png"]);
+	
 		
 		// Buttons to colors Container
 		colors.addChild(greenButton);
@@ -274,14 +265,25 @@ function setup(){
 		yellowButton.scale.y = 0.8;
 		yellowButton.interactive = true;
 		yellowButton.on('mousedown', yellowSays);
-	
+		
 	/*******************************************************************************************************
 	Game Over Scene
 	*******************************************************************************************************/
-	gameOverScene = new Container();
-	stage.addChild(gameOverScene);
-	gameOverScene.visible = false;
+	loseScreen = new Sprite(id["Game Over Screen.png"]);
+	gameOverScene.addChild(loseScreen);
 	
+		// Replay Button 
+		replayButton = new Sprite(id["Replay Base.png"]);
+		gameOverScene.addChild(replayButton);
+		replayButton.anchor.x = 0.5;
+		replayButton.anchor.y = 0.5;
+		replayButton.scale.x = 0.7;
+		replayButton.scale.y = 0.7;
+		replayButton.position.x = 400;
+		replayButton.position.y = 400;
+		replayButton.interactive = true;
+		replayButton.on('mousedown', replayHandler);
+		
 	/*******************************************************************************************************
 	Render Setup!
 	*******************************************************************************************************/
@@ -303,20 +305,12 @@ function gameLoop() {
 State Functions
 **********************************************************************************************************/
 
-	function introduction() {
-		
-	}
-
+	// First pass
 	function gameFirstPass() {
-		simonSays();
-		state = game;
-		
+		simonSays(); // Call simonSays() once
+		state = game; // Change State
 	}
-	
-	function credits() {
-		
-	}
-	
+	// Game loop
 	function game() {
 		if(gameCount == says.length){
 			simonSays();
@@ -324,9 +318,8 @@ State Functions
 		}
 	}
 	
-	function end() {
-		
-	}
+	function introduction(){}
+	
 
 /**********************************************************************************************************
 Helper Functions
@@ -335,7 +328,6 @@ Helper Functions
 	/*******************************************************************************************************
 	Start Handler
 	*******************************************************************************************************/
-	
 	function startHandler(e){
 		introScene.visible = false;
 		state = gameFirstPass;
@@ -345,7 +337,6 @@ Helper Functions
 	/*******************************************************************************************************
 	Help Handler
 	*******************************************************************************************************/
-	
 	function helpHandler(e){
 		introScene.visible = false;
 		helpScene.visible = true;
@@ -356,7 +347,7 @@ Helper Functions
 	*******************************************************************************************************/
 	function backHandler(e){
 		introScene.visible = true;
-		// Make sure other scenese aren't visible	
+		// Make sure other scenes aren't visible	
 		helpScene.visible = false;
 		creditScene.visible = false;
 		gameScene.visible = false;
@@ -377,80 +368,95 @@ Helper Functions
 	Credits Handler
 	*******************************************************************************************************/
 	function creditHandler(e){
-		introScene.visible = false
+		introScene.visible = false;
 		creditScene.visible = true;
 	}
 	
 	/*******************************************************************************************************
+	Replay Handler
+	*******************************************************************************************************/
+	function replayHandler(e){
+		gameOverScene.visible = false;
+		introScene.visible = true;
+		
+	}
+	
+	/*******************************************************************************************************
+	Losing Handler
+	*******************************************************************************************************/
+	function losingHandler(e){
+		// Reset Values for next game
+		
+		
+		globalCount = 0;
+		gameCount = 0;
+		says = [];
+		gameScene.visible = false
+		gameOverScene.visible = true;
+	}	
+	/*******************************************************************************************************
 	Red Says
 	*******************************************************************************************************/
 	function redSays(e){
-		
-		playerSays = 1;
-		redMusic.play();
-		if(playerSays == says[gameCount]){
+		playerSays = 1; // Player says 1
+		redMusic.play(); // Play Music
+		if(playerSays == says[gameCount]){ // if playerSays what Simon says, continue
 			gameCount++;
+			globalCount++;
 		}
 		else{
-			console.log("lose.")
+			losingHandler(); // else go lose!
 		}
-			
-	
-		globalCount++;
 	}
 	
 	/*******************************************************************************************************
 	Blue Says
 	*******************************************************************************************************/
+	// Same as Red Says
 	function blueSays(e){
 		
 		playerSays = 2;
 		blueMusic.play();
 		if(playerSays == says[gameCount]){
 			gameCount++;
+			globalCount++;
 		}
 		else{
-			console.log("lose.")
+			losingHandler();
 		}
-		globalCount++;
-		
 	}
-	
 	/*******************************************************************************************************
 	Green Says
 	*******************************************************************************************************/
+	// Same as Red Says
 	function greenSays(e){
 		
 		playerSays = 3;
 		greenMusic.play();
 		if(playerSays == says[gameCount]){
 			gameCount++;
+			globalCount++;
 		}
 		else{
-			console.log("lose.")
+			losingHandler();
 		}
-		globalCount++;
-		
 	}
-	
-	
 	/*******************************************************************************************************
 	Yellow Says
 	*******************************************************************************************************/
+	// Same as Red Says
 	function yellowSays(e){
 		
 		playerSays = 4;
 		yellowMusic.play();
 		if(playerSays == says[gameCount]){
 			gameCount++;
+			globalCount++;
 		}
 		else{
-			console.log("lose.")
+			losingHandler();
 		}
-		globalCount++;
-		
 	}
-	
 	/*******************************************************************************************************
 	Random Integer Function 
 	*******************************************************************************************************/
@@ -458,7 +464,6 @@ Helper Functions
 	function randomInt(min, max){
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
-	
 	/*******************************************************************************************************
 	Simon Says
 	*******************************************************************************************************/
@@ -469,16 +474,18 @@ Helper Functions
 
 	function simonSays(){
 		
-		// Push a number between [1,4]
-		var whatPush;
-		whatPush = randomInt(1,4);
-		console.log(whatPush);
+		// Push a number between [1,4]		
+		says.push(randomInt(1,4));
 		
-		says.push(whatPush);
-		
-		// 
-		var delay = 1000;
+		// Delay Incrementor
 		var x = 1;
+		
+		// Button Interactions Disabled
+		redButton.interactive = false;
+		blueButton.interactive = false;
+		greenButton.interactive = false;
+		yellowButton.interactive = false;
+		
 		
 		// Play animations
 		for(var i = 0; i<says.length; i++) {
@@ -486,113 +493,37 @@ Helper Functions
 			// Red 
 			if (says[i] === 1){
 				
-				createjs.Tween.get(redButton.position).wait(2000*x).to({x: -110, y: -110}, 1000, createjs.Ease.bounceOut)
-				.to({x: -100, y: -100}, 1000, createjs.Ease.bounceOut);
-				
+				createjs.Tween.get(redButton.position).wait(1000*x).to({x: -110, y: -110}, 500, createjs.Ease.bounceOut)
+				.to({x: -100, y: -100}, 500, createjs.Ease.bounceOut);	
 			}
-		
 			// Blue
 			else if (says[i] === 2){
 				
-				createjs.Tween.get(blueButton.position).wait(2000*x).to({x: 110, y: -110}, 1000, createjs.Ease.bounceOut)
-				.to({x: 100, y: -100}, 1000, createjs.Ease.bounceOut);
-				
-				
+				createjs.Tween.get(blueButton.position).wait(1000*x).to({x: 110, y: -110}, 500, createjs.Ease.bounceOut)
+				.to({x: 100, y: -100}, 500, createjs.Ease.bounceOut);	
 			}
-			
 			// Green
 			else if (says[i] === 3){
 				
-				createjs.Tween.get(greenButton.position).wait(2000*x).to({x: -110, y: 110}, 1000, createjs.Ease.bounceOut)
-				.to({x: -100, y: 100}, 1000, createjs.Ease.bounceOut);
-				
-				
-				
+				createjs.Tween.get(greenButton.position).wait(1000*x).to({x: -110, y: 110}, 500, createjs.Ease.bounceOut)
+				.to({x: -100, y: 100}, 500, createjs.Ease.bounceOut);
 			}
-			
 			// Yellow
 			else if (says[i] === 4){
-				
-				createjs.Tween.get(yellowButton.position).wait(2000*x).to({x: 110, y: 110}, 1000, createjs.Ease.bounceOut)
-				.to({x: 100, y: 100}, 1000, createjs.Ease.bounceOut);
-				
-				
+				createjs.Tween.get(yellowButton.position).wait(1000*x).to({x: 110, y: 110}, 500, createjs.Ease.bounceOut)
+				.to({x: 100, y: 100}, 500, createjs.Ease.bounceOut);	
 			}
-		
 			else { 
 				console.log("An error has occured.");
-				}
+			}
 		}
-	}	
-	
-	
-	/*******************************************************************************************************
-	Player Says
-	*******************************************************************************************************/
-	// Player chooses correct button 
-		// Request next button OR
-		// Repeat simonSays()
-	// Player chooses incorrect button -> End Game.
-	// Player chooses a button why buttons are animating -> Do Nothing
-	/*
-	function player(){
 		
-		
+		// Set Timeout for animation duration
+		setTimeout(function(){
+		// Button Interactions Renabled
 		redButton.interactive = true;
 		blueButton.interactive = true;
 		greenButton.interactive = true;
 		yellowButton.interactive = true;
-		
-		
-		if(playerSays == says[var k=0]){
-			if(k == says.length){
-				simonSays();
-			}
-			else{
-				
-			}
-		}
-			
-		
-		
-		if(globalCount == says.length){				// Check if Arrays are equal
-			if(arraysEqual(playerSaid, says) == true) {		// If Equal 
-				globalCount = 0;					// reset globalCount
-				redButton.interactive = false;		// set Buttons.interactive to false
-				blueButton.interactive = false;
-				greenButton.interactive = false;
-				yellowButton.interactive = false;
-				simonSays();						// call simonSays
-				
-			}
-			else {
-				console.log("lost.");
-			}
-				
-					
-					
-				// Else end game and transit to end game scene
-					// reset globalCount
-					// set Buttons.interactive to false
-					// set says = [];
-			
-		}
-	}
-	*/
-	/*******************************************************************************************************
-	Timer
-	*******************************************************************************************************/	
-	function startTimer () {
-    timer.start();
-    setTimeout(stopTimer,50000);
-}
-
-	function stopTimer () {
-		timer.stop;
-	}
-	/*******************************************************************************************************
-	Array Equality
-	*******************************************************************************************************/
-	function arraysEqual(a1,a2) {
-		return JSON.stringify(a1)==JSON.stringify(a2);
-	}
+		}, 1000*x);
+	}	
